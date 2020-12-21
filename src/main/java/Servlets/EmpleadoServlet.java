@@ -1,11 +1,15 @@
 package Servlets;
 
+import Beans.Empleado;
+import Beans.Rol;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "EmpleadoServlet", urlPatterns = {"/Empleado"})
@@ -24,7 +28,12 @@ public class EmpleadoServlet extends HttpServlet {
 
             RequestDispatcher view;
             switch (accion){
-                case "":
+                case "listar":
+                    HttpSession session = request.getSession();
+                    Empleado empleado= (Empleado) session.getAttribute("empleado");
+                    for (Rol rol : empleado.getRoles()){
+                        empleado.getIdEmpleado()
+                    }
                     break;
             }
 
