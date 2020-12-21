@@ -45,7 +45,7 @@
                     <td><%=cartelera.getIdCartelera()%></td>
                     <td><%=cartelera.getCine().getCadena().getNombreComercial()%></td>
                     <td><%=cartelera.getCine().getNombre()%></td>
-                    <td><%=cartelera.getPelicula().getNombre()%></td>
+                    <td><%=cartelera.getPelicula().getNombre()%> + <%=()%></td>
                     <td><%=cartelera.getHorario()%></td>
                 </tr>
 

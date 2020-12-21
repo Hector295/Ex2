@@ -19,7 +19,7 @@
     <body class="text-center">
         <form class="form-signin" method="POST" action="<%=request.getContextPath()%>/Login">
             <h1 class="h3 mb-3 font-weight-normal">Ingreso al sistema 'movies'</h1>
-            <input type="text" name="dni" class="form-control" placeholder="Correo..." autofocus="">
+            <input type="text" name="dni" class="form-control" placeholder="DNI..." autofocus="">
             <input type="password" name="pass" class="form-control" placeholder="Contraseña...">
             <% if (request.getParameter("error") != null) { %>
             <div class="text-danger mb-2">Error en usuario o contraseña</div>
