@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "CarteleraServlet")
+@WebServlet(name = "CarteleraServlet", urlPatterns = {"/CarteleraServlet"})
 public class CarteleraServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,8 +26,10 @@ public class CarteleraServlet extends HttpServlet {
             case "lista":
                 ArrayList<Cartelera> listaCartelera = daocartelera.listaCartelera();
                 request.setAttribute("lista", listaCartelera);
-                view = request.getRequestDispatcher("cartelera.jsp");
+                view = request.getRequestDispatcher("/Cartelera/cartelera.jsp");
                 view.forward(request, response);
+                break;
+            case "crear":
                 break;
         }
     }

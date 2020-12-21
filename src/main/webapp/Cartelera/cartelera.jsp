@@ -27,12 +27,11 @@
                     <h1 class=''>Cartelera</h1>
                 </div>
                 <div class="col-lg-6 my-auto text-lg-right">
-                    <a href="<%= request.getContextPath()%>/PartidosServlet?action=crear" class="btn btn-primary">Crear Función</a>
+                    <a href="<%= request.getContextPath()%>/CarteleraServlet?action=crear" class="btn btn-primary">Crear Función</a>
                 </div>
             </div>
             <table class="table">
                 <tr>
-                    <th>#</th>
                     <th>Cadena</th>
                     <th>Cine</th>
                     <th>Película</th>
@@ -42,10 +41,9 @@
                     for (Cartelera cartelera : listaCartelera) {
                 %>
                 <tr>
-                    <td><%=cartelera.getIdCartelera()%></td>
                     <td><%=cartelera.getCine().getCadena().getNombreComercial()%></td>
                     <td><%=cartelera.getCine().getNombre()%></td>
-                    <td><%=cartelera.getPelicula().getNombre()%> + <%=()%></td>
+                    <td><%=cartelera.getPelicula().getNombre()%> + <%= cartelera.getTresD() == 1 ? "3D" : ""%> + <%= cartelera.getDoblada() == 1 ? "Doblada" : ""%> + <%= cartelera.getSubtitulada() == 1 ? "Subtitulada" : ""%></td>
                     <td><%=cartelera.getHorario()%></td>
                 </tr>
 
