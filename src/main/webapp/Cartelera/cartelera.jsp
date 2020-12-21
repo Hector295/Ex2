@@ -5,144 +5,62 @@
   Time: 08:42
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="Beans.Cartelera" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+
+<%
+    ArrayList<Cartelera> listaCartelera = (ArrayList<Cartelera>) request.getAttribute("lista");
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'/>
-        <title>Lista empleados</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />
+        <title>Cartelera</title>
     </head>
     <body>
         <div class='container'>
-            <jsp:include page="../includes/navbar.jsp">
-                <jsp:param name="currentPage" value="emp"/>
-            </jsp:include>
+            <jsp:include page="/includes/navbar.jsp"/>
             <div class="row mb-5 mt-4">
                 <div class="col-lg-6">
-                    <h1 class=''>Lista de empleados</h1>
+                    <h1 class=''>Cartelera</h1>
                 </div>
                 <div class="col-lg-6 my-auto text-lg-right">
-                    <% if(employee.getEmployeeId() > 0){ %>
-                    <a href="<%= request.getContextPath()%>/EmployeeServlet?action=agregar" class="btn btn-primary">
-                        Agregar nuevo empleado</a>
-                    <% } %>
+                    <a href="<%= request.getContextPath()%>/PartidosServlet?action=crear" class="btn btn-primary">Crear Función</a>
                 </div>
             </div>
             <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Employee</th>
-                        <th>Email</th>
-                        <th>Job ID</th>
-                        <th>Salary</th>
-                        <th>Commision</th>
-                        <th>Manager ID</th>
-                        <th>Department ID</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        int i = 1;
-                        for (Employee e : listaEmpleados) {
-                    %>
-                    <tr>
-                        <td><%= i%>
-                        </td>
-                        <td><%= e.getFirstName() + " " + e.getLastName()%>
-                        </td>
-                        <td><%= e.getEmail()%>
-                        </td>
-                        <td><%= e.getJob().getJobTitle()%>
-                        </td>
-                        <td><%= e.getSalary()%>
-                        </td>
-                        <td><%= e.getCommissionPct() == null ? "Sin comisión" : e.getCommissionPct()%>
-                        </td>
-                        <td><%= e.getManager().getEmployeeId() == 0 ? "Sin jefe" : (e.getManager().getFirstName() + " " + e.getManager().getLastName())%>
-                        </td>
-                        <td><%= e.getDepartment().getDepartmentName()%>
-                        </td>
-                        <td><a href="EmployeeServlet?action=editar&id=<%= e.getEmployeeId()%>">Editar</a></td>
-                        <td><a href="EmployeeServlet?action=borrar&id=<%= e.getEmployeeId()%>">Borrar</a></td>
-                    </tr>
-                    <%
-                            i++;
-                        }
-                    %>
-                </tbody>
-            </table>
+                <tr>
+                    <th>#</th>
+                    <th>Cadena</th>
+                    <th>Cine</th>
+                    <th>Película</th>
+                    <th>Horario</th>
+                </tr>
+                <%
+                    for (Cartelera cartelera : listaCartelera) {
+                %>
+                <tr>
+                    <td><%=cartelera.getIdCartelera()%></td>
+                    <td><%=cartelera.getCine().getCadena().getNombreComercial()%></td>
+                    <td><%=cartelera.getCine().getNombre()%></td>
+                    <td><%=cartelera.getPelicula().getNombre()%></td>
+                    <td><%=cartelera.getHorario()%></td>
+                </tr>
 
-            <div class="row mb-5 mt-4">
-                <div class="col">
-                    <h1 class=''>Lista de empleados por Región</h1>
-                </div>
-            </div>
-            <table class="table col-6">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Región</th>
-                        <th>Cantidad de empleados</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        int j = 1;
-                        for (EmpleadosPorRegionDto e : listaEmpleadosPorRegion) {
-                    %>
-                    <tr>
-                        <td><%= j%>
-                        </td>
-                        <td><%= e.getRegionName()%>
-                        </td>
-                        <td><%= e.getNumeroEmpleados()%>
-                        </td>
-                    </tr>
-                    <%
-                            j++;
-                        }
-                    %>
-                </tbody>
+                <%
+                    }
+                %>
+
             </table>
-            <hr/>
-            <div class="row mb-5 mt-4">
-                <div class="col">
-                    <h1 class=''>Lista de empleados por con su país</h1>
-                </div>
-            </div>
-            <table class="table col-6">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Empleado</th>
-                        <th>Pais</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        int k = 1;
-                        for (EmpleadoConSuPaisDto e : listaEmpleadosConSuPais) {
-                    %>
-                    <tr>
-                        <td><%= k%>
-                        </td>
-                        <td><%= e.getFirstName() + " " + e.getLastName()%>
-                        </td>
-                        <td><%= e.getCountryName() == null ? "-- sin país --" : e.getCountryName()%>
-                        </td>
-                    </tr>
-                    <%
-                            k++;
-                        }
-                    %>
-                </tbody>
-            </table>
-            <jsp:include page="../includes/footer.jsp"/>
         </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+
     </body>
 </html>
