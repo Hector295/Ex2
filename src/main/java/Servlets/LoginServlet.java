@@ -18,6 +18,7 @@ public class LoginServlet extends HttpServlet {
 
         String dni= request.getParameter("dni");
         String pass= request.getParameter("pass");
+        System.out.println(dni+" "+pass);
         LoginDao loginDao = new LoginDao();
         Empleado empleado=loginDao.obteneEmpleado(dni,pass);
 

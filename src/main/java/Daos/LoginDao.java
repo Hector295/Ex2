@@ -13,7 +13,7 @@ public class LoginDao extends BaseDao{
         empleado= null;
         EmpleadoDao empleadoDao=new EmpleadoDao();
         String sql = "SELECT idempleado,dni, (dni-salario) as passw FROM movies.empleado" +
-                "where dni=? and passw=?;";
+                "where dni=? and (dni-salario)=?;";
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, dni);
@@ -21,8 +21,8 @@ public class LoginDao extends BaseDao{
 
             try (ResultSet rs = pstmt.executeQuery();) {
                 if (rs.next()) {
-                    int employeeId = rs.getInt(1);
-                    empleado = empleadoDao.obtenerEmpleado(employeeId);
+                    int id = rs.getInt(1);
+                    empleado = empleadoDao.obtenerEmpleado(id);
                 }
             }
 

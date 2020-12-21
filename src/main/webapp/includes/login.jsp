@@ -22,7 +22,7 @@
             <input type="text" name="dni" class="form-control" placeholder="DNI..." autofocus="">
             <input type="password" name="pass" class="form-control" placeholder="Contraseña...">
             <% if (request.getParameter("error") != null) { %>
-            <div class="text-danger mb-2">Error en usuario o contraseña</div>
+            <div class="text-danger mb-2">Error en DNI o contraseña</div>
             <% } %>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
         </form>
