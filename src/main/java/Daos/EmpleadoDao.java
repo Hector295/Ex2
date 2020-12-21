@@ -1,11 +1,11 @@
 package Daos;
 
+import Beans.Cine;
 import Beans.Empleado;
+import Beans.Rol;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class EmpleadoDao extends BaseDao{
     Empleado empleado = new Empleado();
@@ -30,29 +30,39 @@ public class EmpleadoDao extends BaseDao{
                     empleado.setFechaContrato(rs.getString(6));
                     empleado.setNombreUsuario(rs.getString(7));
                     empleado.setEdad(rs.getInt(8));
+                    empleado.setActivo(rs.getBoolean(9));
+                    Cine cine = new Cine();
+                    cine.setIdCine(rs.getInt(10));
+                    empleado.setCine(cine);
 
-
-                    Job job = new Job();
-                    job.setJobId(rs.getString(7));
-                    employee.setJob(job);
-
-                    employee.setSalary(rs.getBigDecimal(8));
-                    employee.setCommissionPct(rs.getBigDecimal(9));
-
-                    Employee manager = new Employee();
-                    manager.setEmployeeId(rs.getInt(10));
-                    employee.setManager(manager);
-
-                    Department department = new Department();
-                    department.setDepartmentId(rs.getInt(11));
-                    employee.setDepartment(department);
-
+                    Empleado jefe = new Empleado();
+                    jefe.setIdEmpleado(rs.getInt(11));
+                    empleado.setJefe(jefe);
+                    empleado.setRoles(listaRoles());
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return empleado;
+    }
+    public ArrayList<Rol> listaRoles(){
+      ArrayList<Rol> list = new ArrayList<>();
+      String sql="SELECT * FROM movies.rol;";
+        try (Connection conn = this.getConection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Rol rol = new Rol();
+                rol.setIdRol(rs.getInt(1));
+                rol.setNombre(rs.getString(2));
+                list.add(rol);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return empleado;
+        return list;
     }
 }
